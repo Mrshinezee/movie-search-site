@@ -1,5 +1,4 @@
 import { applyMiddleware, compose, createStore } from 'redux'
-import reduxImmutableStateInvariant from 'redux-immutable-state-invariant'
 import createSagaMiddleware from 'redux-saga'
 
 import rootSaga from './sagas'
@@ -10,20 +9,16 @@ export default (initialState = {}) => {
   // Middleware Configuration
   // ======================================================
   const sagaMiddleware = createSagaMiddleware()
-  const middleware = [sagaMiddleware, reduxImmutableStateInvariant]
+  const middleware = [sagaMiddleware]
 
   // ======================================================
   // Store Enhancers
   // ======================================================
-  const enhancers = [];
 
   let composeEnhancers = compose
 
   if (process.env.NODE_ENV === 'development') {
-    const composeWithDevToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__; // eslint-disable-line
-    if (typeof composeWithDevToolsExtension === 'function') {
-      composeEnhancers = composeWithDevToolsExtension
-    }
+    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__; // eslint-disable-line
   }
 
   // ======================================================
@@ -33,12 +28,11 @@ export default (initialState = {}) => {
     rootReducer,
     initialState,
     composeEnhancers(
-      applyMiddleware(...middleware),
-      ...enhancers,
+      applyMiddleware(...middleware)
     ),
   );
 
-  sagaMiddleware.run(rootSaga)
+  // sagaMiddleware.run(rootSaga)
 
   store.asyncReducers = {}
 
