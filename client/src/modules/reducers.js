@@ -1,24 +1,10 @@
-import { SEARCH_WORD, ADD_WORD } from './constants'
+import { SET_WORD } from './constants'
 
 const reducer = (state = {}, action) => {
+  console.log('state...', state)
   switch (action.type) {
-    case SEARCH_WORD:
-      return [
-        ...state,
-        {
-          text: action.text,
-          completed: false
-        }
-      ]
-    case ADD_WORD:
-      return state.map((todo, index) => {
-        if (index === action.index) {
-          return Object.assign({}, todo, {
-            completed: !todo.completed
-          })
-        }
-        return todo
-      })
+    case SET_WORD:
+      return Object.assign({}, state, { keyword: action.keyword })
     default:
       return state
   }

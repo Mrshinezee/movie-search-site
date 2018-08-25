@@ -1,2 +1,5 @@
-export const SEARCH_WORD = 'SEARCH_WORD'
-export const ADD_WORD = 'ADD_WORD'
+export const SEARCH_MOVIE = 'SEARCH_MOVIE'
+export const SEARCH_MOVIE_SUCCESS = 'SEARCH_MOVIE_SUCCESS'
+export const SEARCH_MOVIE_ERROR = 'SEARCH_MOVIE_ERROR'
+
+export const SET_WORD = 'SET_WORD'

@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
 import store from './modules/store'
-import App from './App'
-import './index.css'
+import Search from './containers/Search'
+import './index.scss'
 
 ReactDOM.render(
-  <Provider store={store()}>
-    <App />
-  </Provider>, document.getElementById('root'))
+  <Provider store={store}>
+    <Search />
+  </Provider>, document.getElementById('root'),
+)

@@ -1,6 +1,27 @@
-import { SEARCH_WORD, ADD_WORD } from './constants'
+import {
+  SEARCH_MOVIE,
+  SEARCH_MOVIE_SUCCESS,
+  SEARCH_MOVIE_ERROR,
+  SET_WORD,
+} from './constants'
 
-export const setSearchWord = data => ({
-  type: ADD_WORD,
+export const setKeyWord = data => ({
+  type: SET_WORD,
   data,
+})
+
+export const searchMovie = keyword => ({
+  type: SEARCH_MOVIE,
+  keyword,
+})
+
+export const searchMovieSuccess = ({ data, keyword }) => ({
+  type: SEARCH_MOVIE_SUCCESS,
+  data,
+  keyword,
+})
+
+export const searchMovieError = ({ keyword }) => ({
+  type: SEARCH_MOVIE_ERROR,
+  keyword,
 })
