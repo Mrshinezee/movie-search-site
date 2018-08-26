@@ -1,6 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import MovieDetails from '../MovieDetails'
+import Loader from '../Loader'
 
 import './SearchResults.css'
 
@@ -9,8 +11,8 @@ const SearchResults = ({ movies: { isLoading, isError, data } }) => {
 
   if (isLoading) {
     return (
-      <div className="search-results__loading">
-        Loading
+      <div className='search-results__loading'>
+        <Loader />
       </div>
     )
   }
@@ -23,17 +25,25 @@ const SearchResults = ({ movies: { isLoading, isError, data } }) => {
 
   if (data && data.length === 0) {
     return (
-      <div className="search-results__none">
+      <div className='search-results__none'>
         No Results Found
       </div>
     )
   }
 
   return (
-    <div className="search-results">
+    <div className='search-results'>
       {movieDetailsList}
     </div>
   )
+}
+
+SearchResults.propTypes = {
+  movies: PropTypes.shape({
+    isLoading: PropTypes.bool.isRequired,
+    isError: PropTypes.bool.isRequired,
+    data: PropTypes.array,
+  }),
 }
 
 export default SearchResults

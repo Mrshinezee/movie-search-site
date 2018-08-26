@@ -15,21 +15,34 @@ export class Search extends Component {
     document.title = 'Movie Search Site'
   }
 
+  searchMovie = () => {
+    const { searchMovie, keyword, movies } = this.props
+
+    if (!movies) {
+      searchMovie(keyword)
+    }
+  }
+
   render() {
-    const { searchMovie, keyword, setKeyword, movies } = this.props
+    const { keyword, setKeyword, movies } = this.props
 
     return (
       <div className='search'>
+        <div className='search__title'>
+          <h2>Movie Search Site</h2>
+        </div>
         <SearchForm
           keyword={keyword}
           setKeyword={setKeyword}
-          searchMovie={searchMovie}
+          searchMovie={this.searchMovie}
         />
-        {movies &&
+        {movies
+          && (
           <SearchResults
             keyword={keyword}
             movies={movies}
           />
+          )
         }
       </div>
     )
@@ -41,13 +54,19 @@ const mapStateToProps = ({ keyword, results }) => ({
   movies: results[keyword],
 })
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      setKeyword,
-      searchMovie,
-    },
-    dispatch
-  );
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    setKeyword,
+    searchMovie,
+  },
+  dispatch,
+)
+
+Search.propTypes = {
+  setKeyword: PropTypes.func.isRequired,
+  searchMovie: PropTypes.func.isRequired,
+  movies: PropTypes.object,
+  keyword: PropTypes.string,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search)

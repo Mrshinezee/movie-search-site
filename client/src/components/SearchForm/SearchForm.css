@@ -1,5 +1,24 @@
 .search-form {
-  margin: 50px auto;
   display: flex;
-  max-width: 60%;
+  flex-wrap: wrap;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.search-form__field {
+  border: none;
+  border-radius: 5px 5px 5px 5px;
+	background: #FFFFFF;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 0.35em 0.75em;
+	border: 1px solid;
+	font-size: 1.1em;
+	text-decoration: none;
+	line-height: normal;
+	max-height: 3em;
+  flex: 2 0 250px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

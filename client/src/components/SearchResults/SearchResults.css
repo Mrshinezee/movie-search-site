@@ -2,6 +2,11 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: flex-start;
+}
+
+.search-results__loading, .search-results__none {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
   align-items: center;
 }

@@ -11,8 +11,11 @@
     "prefer-const": 1,
     "semi": [2, "never"],
     "quote-props": [1, "consistent-as-needed"],
+    "import/no-named-as-default": 0,
     "react/no-multi-comp": 0,
     "react/prop-types": 0,
+    "react/require-default-props": 0,
+    "react/forbid-prop-types": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/no-array-index-key": 0,
     "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}]
@@ -21,5 +24,8 @@
     "window": true,
     "global": true,
     "document": true
+  },
+  "env": {
+    "jest": true
   }
 }

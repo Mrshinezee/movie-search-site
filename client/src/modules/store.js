@@ -9,6 +9,15 @@ const initialState = {
   results: {},
 }
 
+// const fetchMiddleware = () => store => next => action => {
+//   if (action.type === 'SEARCH_MOVIE') {
+//     console.log('act', action, store.getState().results[action.keyword]);
+//     return next(action);
+//   } else {
+//     return next(action);
+//   }
+// }
+
 // ======================================================
 // Middleware Configuration
 // ======================================================
