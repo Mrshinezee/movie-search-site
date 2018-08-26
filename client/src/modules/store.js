@@ -51,5 +51,3 @@ export default store
 
 
 export const createAction = type => store.dispatch({ type })
-
-console.log(store, createAction)

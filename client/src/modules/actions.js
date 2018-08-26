@@ -5,14 +5,15 @@ import {
   SET_WORD,
 } from './constants'
 
-export const setKeyWord = data => ({
+export const setKeyword = keyword => ({
   type: SET_WORD,
-  data,
+  keyword,
 })
 
-export const searchMovie = keyword => ({
+export const searchMovie = (keyword, page = 1) => ({
   type: SEARCH_MOVIE,
   keyword,
+  page,
 })
 
 export const searchMovieSuccess = ({ data, keyword }) => ({

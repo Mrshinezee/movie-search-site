@@ -1,3 +1,3 @@
-import SearchForm from './SearchForm'
+import SearchResults from './SearchResults'
 
-export default SearchForm
+export default SearchResults

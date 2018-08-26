@@ -14,15 +14,13 @@ function* makeApiCall({
 }) {
   try {
     const response = yield call(apiFn, args)
-    yield put(successAction(response.body))
+    yield put(successAction(response.data))
   } catch (error) {
     yield put(errorAction())
   }
 }
 
 function* searchMovieSaga({ keyword }) {
-  console.log('keyword', keyword)
-
   yield makeApiCall({
     apiFn: getMoviesInfo,
     args: { keyword },
