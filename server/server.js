@@ -5,13 +5,19 @@ const axios = require('axios')
 const flatCache = require('flat-cache')
 const moment = require('moment')
 
-// const Logger = require('winston')
-
 dotenv.config()
 
 const app = express()
 const port = process.env.PORT || 5000
-const cache = flatCache.load('productsCache')
+const cache = flatCache.load('moviesCache')
+
+const getRequests = (s, page) => axios.get('http://www.omdbapi.com/', {
+  params: {
+    s,
+    apikey: process.env.OMDB_KEY,
+    page,
+  },
+})
 
 // API calls
 app.get('/api/search', async (req, res) => {
@@ -25,21 +31,9 @@ app.get('/api/search', async (req, res) => {
 
     // Check duration of last fetch
   } else {
-    const firstRequestPromise = axios.get('http://www.omdbapi.com/', {
-      params: {
-        s: req.query.keyword,
-        apikey: process.env.OMDB_KEY,
-        page: 1,
-      },
-    })
+    const firstRequestPromise = getRequests(keyword, 1)
 
-    const secondRequestPromise = axios.get('http://www.omdbapi.com/', {
-      params: {
-        s: req.query.keyword,
-        apikey: process.env.OMDB_KEY,
-        page: 2,
-      },
-    })
+    const secondRequestPromise = getRequests(keyword, 2)
 
     const [
       firstResponse,
@@ -69,11 +63,11 @@ app.get('/api/search', async (req, res) => {
 
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
-  app.use(express.static(path.join(__dirname, 'client/build')))
+  app.use(express.static(path.join(__dirname, '../client/build')))
 
   // Handle React routing, return all requests to React app
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'))
   })
 }
 

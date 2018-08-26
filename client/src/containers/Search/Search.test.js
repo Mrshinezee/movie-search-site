@@ -1,8 +1,8 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import Search from './Search'
 
-it('renders without crashing', () => {
-  const div = document.createElement('div')
-  ReactDOM.render(<Search />, div)
+it('renders without <Search /> crashing', () => {
+  const wrapper = shallow(<Search />)
+
+  expect(wrapper.find('h1').length).toBe(1)
 })

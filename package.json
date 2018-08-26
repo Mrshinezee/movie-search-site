@@ -10,10 +10,10 @@
   "scripts": {
     "setup": "npm install && cd client && npm install",
     "client": "cd client && yarn start",
-    "server": "nodemon server.js",
+    "server": "nodemon server/server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "dev:server": "cd client && yarn build && cd .. && yarn start",
-    "start": "node server.js",
+    "start": "node server/server.js",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest --coverage",
