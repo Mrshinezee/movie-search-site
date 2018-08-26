@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-
-import { setKeyword, searchMovie } from '../../modules/actions'
 
 import './SearchForm.css'
 
-const WAIT_INTERVAL = 300
+const WAIT_INTERVAL = 3000
 const ENTER_KEY = 13
 
 class SearchForm extends Component {
@@ -24,22 +20,20 @@ class SearchForm extends Component {
   }
 
   handleTextChange(event) {
-    event.preventDefault()
-
     const { setKeyword, keyword } = this.props
 
     clearTimeout(this.timer)
     setKeyword(event.target.value)
-
-    this.timer = setTimeout(() => {
-      if (keyword.length >= 3) {
+    
+    if (event.target.value.length >= 3) {
+      this.timer = setTimeout(() => {
         this.handleSubmit()
-      }
-    }, WAIT_INTERVAL)
+      }, WAIT_INTERVAL)
+    }
   }
 
   handleKeyDown(event) {
-    if (event.keyCode === ENTER_KEY) {
+    if (event.keyCode === ENTER_KEY && event.target.value.length >= 3) {
         this.handleSubmit()
     }
   }
@@ -47,8 +41,6 @@ class SearchForm extends Component {
   handleSubmit() {
     const { searchMovie, keyword } = this.props
     if (this.validateInput()) {
-      console.log('keyw', keyword);
-      
       searchMovie(keyword)
     }
   }
@@ -73,30 +65,9 @@ class SearchForm extends Component {
           placeholder="Keyword"
           className="search-form__field"
         />
-
-        <button
-          type="submit"
-          className="search-form__submit"
-          onClick={this.handleSubmit}
-        >
-          Search
-        </button>
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  keyword: state.keyword,
-})
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      setKeyword,
-      searchMovie,
-    },
-    dispatch
-  );
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)
+export default SearchForm

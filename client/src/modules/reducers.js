@@ -6,7 +6,6 @@ import {
 } from './constants'
 
 const reducer = (state = {}, action) => {
-  console.log('state...', state, action)
   switch (action.type) {
     case SET_WORD:
       return Object.assign({}, state, { keyword: action.keyword })
@@ -26,8 +25,7 @@ const reducer = (state = {}, action) => {
           [action.keyword]: {
             isLoading: false,
             isError: false,
-            data: action.data.Search,
-            count: action.data.totalResults,
+            data: action.data,
           },
         })
       })

@@ -1,0 +1,16 @@
+.movie-details {
+  border-radius: 10px;
+  width: 31%;
+  background-color: yellow;
+  margin: 0.5%;
+  padding: 0.5%;
+  min-height: 400px
+}
+
+@media screen and (max-width: 768px) {
+  .movie-details {
+    width: 45%;
+    margin: 1%;
+    padding: 1%;
+  }
+}

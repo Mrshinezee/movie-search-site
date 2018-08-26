@@ -10,10 +10,9 @@ export const setKeyword = keyword => ({
   keyword,
 })
 
-export const searchMovie = (keyword, page = 1) => ({
+export const searchMovie = (keyword) => ({
   type: SEARCH_MOVIE,
   keyword,
-  page,
 })
 
 export const searchMovieSuccess = ({ data, keyword }) => ({

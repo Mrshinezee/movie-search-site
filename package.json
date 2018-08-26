@@ -8,6 +8,7 @@
   },
   "license": "MIT",
   "scripts": {
+    "setup": "npm install && cd client && npm install",
     "client": "cd client && yarn start",
     "server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",

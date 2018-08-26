@@ -1,5 +1,5 @@
 {
-  "name": "create-react-app-express",
+  "name": "movie-search-site",
   "version": "0.1.0",
   "license": "MIT",
   "dependencies": {
@@ -9,7 +9,6 @@
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
-    "redux-immutable-state-invariant": "^2.1.0",
     "redux-saga": "^0.16.0"
   },
   "scripts": {

@@ -11,30 +11,58 @@ dotenv.config()
 
 const app = express()
 const port = process.env.PORT || 5000
-let cache = flatCache.load('productsCache')
+const cache = flatCache.load('productsCache')
 
 // API calls
 app.get('/api/search', async (req, res) => {
-  const { page, keyword } = req.query
-  const key = `__express__${page}-${keyword}`
+  const { keyword } = req.query
+  const key = `__express__${keyword}`
   const cacheContent = cache.getKey(key)
   const utcTime = moment.utc(new Date()).format()
 
-  console.log(utcTime, cacheContent)
-
   if (cacheContent) {
-    console.log('cache found', cacheContent)
-    res.send(cacheContent)
+    res.send(cacheContent.data)
+
+    // Check duration of last fetch
   } else {
-    const request = await axios.get('http://www.omdbapi.com/', {
+    const firstRequestPromise = axios.get('http://www.omdbapi.com/', {
       params: {
         s: req.query.keyword,
         apikey: process.env.OMDB_KEY,
-        p: 2,
+        page: 1,
       },
     })
-    res.send(request.data)
-    cache.setKey(key, Object.assign({}, request.data, { time: utcTime }))
+
+    const secondRequestPromise = axios.get('http://www.omdbapi.com/', {
+      params: {
+        s: req.query.keyword,
+        apikey: process.env.OMDB_KEY,
+        page: 2,
+      },
+    })
+
+    const [
+      firstResponse,
+      secondResponse,
+    ] = await Promise.all([ firstRequestPromise, secondRequestPromise ])
+
+    let responseData = []
+
+    if (firstResponse.data.Response === 'True') {
+      responseData = responseData
+        .concat(firstResponse.data.Search)
+    }
+    if (secondResponse.data.Response === 'True') {
+      responseData = responseData
+        .concat(secondResponse.data.Search)
+    }
+
+    res.send(responseData)
+
+    cache.setKey(key, {
+      data: responseData,
+      time: utcTime,
+    })
     cache.save()
   }
 })
