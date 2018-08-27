@@ -5,6 +5,17 @@ import {
   SEARCH_MOVIE_ERROR,
 } from './constants'
 
+const getDerivedState = (state, keyword, isLoading, isError, data) => 
+  Object.assign({}, state, {
+    results: Object.assign({}, state.results, {
+      [keyword]: {
+        isLoading,
+        isError,
+        data,
+      },
+    }),
+  })
+
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case SET_WORD:
@@ -18,18 +29,6 @@ const reducer = (state = {}, action) => {
     default:
       return state
   }
-}
-
-const getDerivedState = (state, keyword, isLoading, isError, data) => {
-  return Object.assign({}, state, {
-    results: Object.assign({}, state.results, {
-      [keyword]: {
-        isLoading,
-        isError,
-        data,
-      },
-    }),
-  })
 }
 
 export default reducer

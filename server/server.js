@@ -11,13 +11,36 @@ const app = express()
 const port = process.env.PORT || 5000
 const cache = flatCache.load('moviesCache')
 
-const getRequests = (s, page) => axios.get('http://www.omdbapi.com/', {
+const getRequestPromise = (s, page) => axios.get('http://www.omdbapi.com/', {
   params: {
     s,
     apikey: process.env.OMDB_KEY,
     page,
   },
 })
+
+const getMoviesData = async (keyword) => {
+  const firstRequestPromise = getRequestPromise(keyword, 1)
+  const secondRequestPromise = getRequestPromise(keyword, 2)
+
+  const [
+    firstResponse,
+    secondResponse,
+  ] = await Promise.all([ firstRequestPromise, secondRequestPromise ])
+
+  let responseData = []
+
+  if (firstResponse.data.Response === 'True') {
+    responseData = responseData
+      .concat(firstResponse.data.Search)
+  }
+  if (secondResponse.data.Response === 'True') {
+    responseData = responseData
+      .concat(secondResponse.data.Search)
+  }
+
+  return responseData
+}
 
 // API calls
 app.get('/api/search', async (req, res) => {
@@ -29,32 +52,25 @@ app.get('/api/search', async (req, res) => {
   if (cacheContent) {
     res.send(cacheContent.data)
 
-    // Check duration of last fetch
+    const cacheTime = cacheContent.time
+    const diff = moment(utcTime).diff(cacheTime, 'minutes')
+
+    if (diff > 1) {
+      const data = await getMoviesData(keyword)
+
+      cache.setKey(key, {
+        data,
+        time: utcTime,
+      })
+      cache.save()
+    }
   } else {
-    const firstRequestPromise = getRequests(keyword, 1)
+    const data = await getMoviesData(keyword)
 
-    const secondRequestPromise = getRequests(keyword, 2)
-
-    const [
-      firstResponse,
-      secondResponse,
-    ] = await Promise.all([ firstRequestPromise, secondRequestPromise ])
-
-    let responseData = []
-
-    if (firstResponse.data.Response === 'True') {
-      responseData = responseData
-        .concat(firstResponse.data.Search)
-    }
-    if (secondResponse.data.Response === 'True') {
-      responseData = responseData
-        .concat(secondResponse.data.Search)
-    }
-
-    res.send(responseData)
+    res.send(data)
 
     cache.setKey(key, {
-      data: responseData,
+      data,
       time: utcTime,
     })
     cache.save()

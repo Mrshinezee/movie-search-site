@@ -12,7 +12,7 @@ const MovieDetails = ({ movie: { Title, Poster, imdbID } }) => (
   <div className='movie-details'>
     <div className='movie-details__image'>
       <img
-        src={Poster === 'N/A'? NoPoster : Poster}
+        src={Poster === 'N/A' ? NoPoster : Poster}
         alt={`${Title} cover`}
         height={350}
         width={263}
