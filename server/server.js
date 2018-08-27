@@ -45,7 +45,7 @@ const getMoviesData = async (keyword) => {
 // API calls
 app.get('/api/search', async (req, res) => {
   const { keyword } = req.query
-  const key = `__express__${keyword}`
+  const key = `${keyword}`
   const cacheContent = cache.getKey(key)
   const utcTime = moment.utc(new Date()).format()
 
@@ -75,6 +75,14 @@ app.get('/api/search', async (req, res) => {
     })
     cache.save()
   }
+})
+
+app.get('/api/cache/refresh', async (req, res) => {
+  const allContents = cache.all()
+
+  // Cant complete this because I am unable to get all data
+
+  res.send(allContents)
 })
 
 if (process.env.NODE_ENV === 'production') {

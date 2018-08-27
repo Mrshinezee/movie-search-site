@@ -1,6 +1,6 @@
-# create-react-app React Project with Node Express Backend
+# Movie Search React Project with Node Express Backend
 
-> Example on using create-react-app with a Node Express Backend
+> An app that searches for movies with [OMDB API](http://www.omdbapi.com/)
 
 ## Usage
 
@@ -13,43 +13,45 @@ npm i nodemon -g
 Install server and client dependencies
 
 ```
-yarn
-cd client
-yarn
+npm run setup
 ```
+
+Create a `.env` file in your root directory and setup you environment variable as follows
+
+```
+OMDB_KEY=xxxxxxxx
+```
+
+where `xxxxxxxx` is the API Key generated from [OMDB](http://www.omdbapi.com/).
+
 
 To start the server and client at the same time (from the root of the project)
 
 ```
-yarn dev
+npm run dev
 ```
 
-Running the production build on localhost. This will create a production build, then Node will serve the app on http://localhost:5000
+## Testing
 
 ```
-NODE_ENV=production yarn dev:server
+npm test
 ```
 
-## How this works
+## Time spent on this project
 
-The key to use an Express backend with a project created with `create-react-app` is on using a **proxy**. We have a _proxy_ entry in `client/package.json`
+I spent around 12 hours working on this project
 
-```
-"proxy": "http://localhost:5000/"
-```
+## Making this project production ready
 
-This tells Webpack development server to proxy our API requests to our API server, given that our Express server is running on **localhost:5000**
+* I would use a more robust caching system like [Redis](https://redis.io/) I am currently using a `flat-cache`
+which stores the cache as a file on the server and also has limited functionality
 
-## Tutorial
+* Build the app by running `npm run build`
 
-Visit my [blog post](https://medium.freecodecamp.org/how-to-make-create-react-app-work-with-a-node-backend-api-7c5c48acb1b0) entry for a detailed step-by-step guide.
+## What to add with more time
+* Pagination: We are currently returning only the first 20 results
+* Movie Details main view
+* Deploy to Docker: Not familiar with Docker
 
-[Deployed app](https://cra-express.herokuapp.com/)
 
-## Giving Back
-
-If you would like to support my work and the time I put in making tutorials, you can click the image below to get me a coffee. I would really appreciate it (but is not required).
-
-[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/black_img.png)](https://www.buymeacoffee.com/esausilva)
-
--Esau
+-Bendozy
