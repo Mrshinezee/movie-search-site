@@ -34,7 +34,7 @@ npm run dev
 ## Testing
 
 ```
-npm test
+npm run test:client
 ```
 
 ## Time spent on this project

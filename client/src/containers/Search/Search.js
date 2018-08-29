@@ -45,12 +45,12 @@ export class Search extends Component {
   }
 }
 
-const mapStateToProps = ({ keyword, results }) => ({
+export const mapStateToProps = ({ keyword, results }) => ({
   keyword,
   movies: results[keyword],
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators(
+export const mapDispatchToProps = dispatch => bindActionCreators(
   {
     setKeyword,
     searchMovie,

@@ -8,7 +8,7 @@ const moment = require('moment')
 dotenv.config()
 
 const app = express()
-const port = process.env.PORT || 4600
+const port = process.env.PORT || 5000
 const cache = flatCache.load('moviesCache')
 
 const getRequestPromise = (s, page) => axios.get('http://www.omdbapi.com/', {

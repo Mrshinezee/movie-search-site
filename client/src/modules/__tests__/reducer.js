@@ -1,6 +1,6 @@
+import assert from 'assert'
 import reducer from '../reducers'
 import * as types from '../constants'
-import assert from 'assert'
 
 describe('reducer', () => {
   it('should return the initial state', () => {
@@ -24,9 +24,9 @@ describe('reducer', () => {
     }
 
     const results = {
-      test: { data: null, isError: false, isLoading: true }
+      test: { data: null, isError: false, isLoading: true },
     }
-  
+
     assert.deepEqual(reducer('', searchAction).results, results)
   })
 
@@ -39,7 +39,7 @@ describe('reducer', () => {
     }
 
     const results = {
-      test: { data: {}, isError: false, isLoading: false }
+      test: { data: {}, isError: false, isLoading: false },
     }
     assert.deepEqual(reducer({ keyword }, successAction).results, results)
   })
@@ -53,7 +53,7 @@ describe('reducer', () => {
     }
 
     const results = {
-      test: { data: null, isError: true, isLoading: false }
+      test: { data: null, isError: true, isLoading: false },
     }
 
     assert.deepEqual(reducer({ keyword }, getAction).results, results)

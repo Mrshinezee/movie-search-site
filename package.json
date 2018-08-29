@@ -15,10 +15,7 @@
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "dev:server": "cd client && npm run build && cd .. && npm start",
     "start": "node server/server.js",
-    "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix",
-    "test:client": "cd client && npm test",
-    "test:watch": "npm test --watch"
+    "test:client": "cd client && npm test"
   },
   "dependencies": {
     "axios": "^0.18.0",

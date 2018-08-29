@@ -32,8 +32,10 @@ class SearchForm extends Component {
   }
 
   handleKeyDown(event) {
+    const { searchMovie } = this.props
+  
     if (event.keyCode === ENTER_KEY && event.target.value.length >= 3) {
-      this.handleSubmit()
+      searchMovie()
     }
   }
 
