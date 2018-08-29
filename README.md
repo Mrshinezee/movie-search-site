@@ -39,7 +39,7 @@ npm run test:client
 
 ## Time spent on this project
 
-I spent around 12 hours working on this project
+I spent around 24 hours working on this project
 
 ## Making this project production ready
 
