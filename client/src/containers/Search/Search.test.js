@@ -1,8 +1,13 @@
 import React from 'react'
-import Search from './Search'
+import { Search } from './Search'
+
+const searchMovie = jest.fn()
+const setKeyword = jest.fn()
 
 it('renders without <Search /> crashing', () => {
-  const wrapper = shallow(<Search />)
+  const wrapper = shallow(
+    <Search setKeyword={setKeyword} searchMovie={searchMovie} />
+  )
 
-  expect(wrapper.find('h1').length).toBe(1)
+  expect(wrapper.find('.search__title').length).toBe(1)
 })

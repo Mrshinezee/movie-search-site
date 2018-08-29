@@ -11,10 +11,6 @@ import { setKeyword, searchMovie } from '../../modules/actions'
 import './Search.css'
 
 export class Search extends Component {
-  componentDidMount() {
-    document.title = 'Movie Search Site'
-  }
-
   searchMovie = () => {
     const { searchMovie, keyword, movies } = this.props
 
