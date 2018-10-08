@@ -4,13 +4,11 @@ import PropTypes from 'prop-types'
 import './SearchForm.css'
 
 const WAIT_INTERVAL = 300
-const ENTER_KEY = 13
 
 class SearchForm extends Component {
   constructor(props) {
     super(props)
 
-    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleTextChange = this.handleTextChange.bind(this)
   }
 
@@ -31,14 +29,6 @@ class SearchForm extends Component {
     }
   }
 
-  handleKeyDown(event) {
-    const { searchMovie } = this.props
-  
-    if (event.keyCode === ENTER_KEY && event.target.value.length >= 3) {
-      searchMovie()
-    }
-  }
-
   render() {
     const { keyword } = this.props
 
@@ -49,7 +39,6 @@ class SearchForm extends Component {
           name='keyword'
           value={keyword}
           onChange={this.handleTextChange}
-          onKeyDown={this.handleKeyDown}
           placeholder='Keyword'
           className='search-form__field'
         />
