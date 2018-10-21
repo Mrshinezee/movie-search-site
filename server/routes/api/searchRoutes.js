@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
         data,
         time: utcTime,
       })
-      cache.save()
+      cache.save(true)
     }
   } else {
     const data = await getMoviesData(keyword)
@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
       data,
       time: utcTime,
     })
-    cache.save()
+    cache.save(true)
   }
 })
 

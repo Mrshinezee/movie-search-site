@@ -31,6 +31,13 @@ To start the server and client at the same time (from the root of the project)
 npm run dev
 ```
 
+## Refreshing
+To refresh locally run
+
+```
+http://localhost:5000/api/cache/refresh
+```
+
 ## Testing
 
 ```
