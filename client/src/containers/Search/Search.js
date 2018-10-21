@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { compose } from 'recompose'
+import { withCookies } from 'react-cookie';
 import { bindActionCreators } from 'redux'
 
 import SearchForm from '../../components/SearchForm'
@@ -12,10 +14,13 @@ import './Search.css'
 
 export class Search extends Component {
   searchMovie = () => {
-    const { searchMovie, keyword, movies } = this.props
+    const { searchMovie, keyword, movies, cookies } = this.props
 
     if (!movies) {
-      searchMovie(keyword)
+      searchMovie({
+        keyword,
+        cookies
+      })
     }
   }
 
@@ -65,4 +70,8 @@ Search.propTypes = {
   keyword: PropTypes.string,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search)
+const enhance = compose(
+  withCookies,
+  connect(mapStateToProps, mapDispatchToProps)
+)
+export default enhance(Search)

@@ -24,6 +24,8 @@ const reducer = (state = {}, action) => {
     case SEARCH_MOVIE:
       return getDerivedState(state, action.keyword, true, false, null)
     case SEARCH_MOVIE_SUCCESS:
+      console.log('here', action);
+      
       return getDerivedState(state, action.keyword, false, false, action.data)
     case SEARCH_MOVIE_ERROR:
       return getDerivedState(state, action.keyword, false, true, null)
