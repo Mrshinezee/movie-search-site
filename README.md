@@ -40,8 +40,14 @@ http://localhost:5000/api/cache/refresh
 
 ## Testing
 
+For Client
 ```
 npm run test:client
+```
+
+For Server
+```
+npm run test:server
 ```
 
 ## Time spent on this project

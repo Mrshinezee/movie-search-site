@@ -5,9 +5,9 @@ const moment = require('moment')
 const getMoviesData = require('../../helpers/getMoviesData')
 
 const router = express.Router()
-const cache = flatCache.load('moviesCache')
 
 router.get('/refresh', (req, res) => {
+  const cache = flatCache.load('moviesCache')
   const allContents = cache.all()
 
   res.send({ refreshing: true })

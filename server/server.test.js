@@ -1,52 +1,43 @@
-const apiRoutes = require('./routes/api')
-const express = require('express')
-const moxios = require('moxios')
 const request = require('supertest')
+const express = require('express')
+const axios = require('axios')
+const flatCache = require('flat-cache')
 
-const initApiRoutes = () => {
-  const app = express()
-  app.use(apiRoutes())
-  return app
-}
+const apiRoutes = require('./routes/api')
+const app = express()
 
-describe('GET /api/search?keyword=foo', () => {
+app.use(apiRoutes)
+jest.mock('axios')
+
+describe('Test the Search route', () => {
   beforeEach(() => {
-    moxios.install()
+    const resp = {
+      data: [{
+        name: 'Bob22'
+      }]
+    }
+
+    axios.get.mockResolvedValue(resp)
   })
-  afterEach(() => {
-    moxios.uninstall()
-  })
-  test('It should fetch foo from OMDB', async () => {
-    moxios.stubRequest(/api.github.com\/users/, {
-      status: 200,
-      response: {
-        blog: 'https://codewithhugo.com',
-        location: 'London',
-        bio: 'Developer, JavaScript',
-        public_repos: 39,
+
+  test('It should get a list of movies', (done) => {
+    flatCache.load = jest.fn().mockImplementation(() => {
+      return {
+        setKey: jest.fn(),
+        getKey: jest.fn(),
       }
     })
-    const app = initApiRoutes()
-    await request(app).get('/hugo')
-    expect(moxios.requests.mostRecent().url).toBe('https://api.github.com/users/HugoDF')
-  })
-  test('It should 200 and return a transformed version of GitHub response', async () => {
-    moxios.stubRequest(/api.github.com\/users/, {
-      status: 200,
-      response: {
-        blog: 'https://codewithhugo.com',
-        location: 'London',
-        bio: 'Developer, JavaScript',
-        public_repos: 39,
-      }
-    })
-    const app = initApiRoutes()
-    const res = await request(app).get('/hugo')
-    expect(res.body).toEqual({
-      blog: 'https://codewithhugo.com',
-        location: 'London',
-        bio: 'Developer, JavaScript',
-        publicRepos: 39,
-    })
+
+    return request(app)
+      .get('/api/search')
+      .query({
+        keyword: 'feed'
+      })
+      .then(response => {
+        expect(flatCache.load.mock.calls.length).toBe(1)
+        expect(response.statusCode).toBe(200)
+        expect(axios.get.mock.calls.length).toBe(2)
+        done()
+      })
   })
 })
